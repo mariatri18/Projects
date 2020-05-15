@@ -1,2 +1,2 @@
-with open('python_COLMOOC/myfile.txt', 'w') as f:
-    f.write('test')
+with open('python_COLMOOC/myfile.txt', 'w', encoding='utf-8') as f:
+    f.write('ελα')
