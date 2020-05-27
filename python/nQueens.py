@@ -1,3 +1,5 @@
+import subprocess
+
 class QueenChessBoard:
     def __init__(self, size):
         # board has dimensions size x size
@@ -84,3 +86,7 @@ def print_all_solutions_helper(board):
  
 n = int(input('Enter n: '))
 print_all_solutions_to_n_queen(n)
+
+
+with open("out.txt", "w+") as output:
+    subprocess.call(["python", "./nQueens.py"], stdout=output);
