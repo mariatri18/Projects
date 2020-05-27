@@ -1,92 +1,86 @@
-# Python3 program to solve N Queen  
-# Problem using backtracking 
-global N 
-N = 4
-  
-def printSolution(board): 
-    for i in range(N): 
-        for j in range(N): 
-            print (board[i][j], end = " ") 
-        print() 
-  
-# A utility function to check if a queen can 
-# be placed on board[row][col]. Note that this 
-# function is called when "col" queens are 
-# already placed in columns from 0 to col -1. 
-# So we need to check only left side for 
-# attacking queens 
-def isSafe(board, row, col): 
-  
-    # Check this row on left side 
-    for i in range(col): 
-        if board[row][i] == 1: 
-            return False
-  
-    # Check upper diagonal on left side 
-    for i, j in zip(range(row, -1, -1),  
-                    range(col, -1, -1)): 
-        if board[i][j] == 1: 
-            return False
-  
-    # Check lower diagonal on left side 
-    for i, j in zip(range(row, N, 1),  
-                    range(col, -1, -1)): 
-        if board[i][j] == 1: 
-            return False
-  
-    return True
-  
-def solveNQUtil(board, col): 
-      
-    # base case: If all queens are placed 
-    # then return true 
-    if col >= N: 
+class QueenChessBoard:
+    def __init__(self, size):
+        # board has dimensions size x size
+        self.size = size
+        # columns[r] is a number c if a queen is placed at row r and column c.
+        # columns[r] is out of range if no queen is place in row r.
+        # Thus after all queens are placed, they will be at positions
+        # (columns[0], 0), (columns[1], 1), ... (columns[size - 1], size - 1)
+        self.columns = []
+ 
+    def get_size(self):
+        return self.size
+ 
+    def get_queens_count(self):
+        return len(self.columns)
+ 
+    def place_in_next_row(self, column):
+        self.columns.append(column)
+ 
+    def remove_in_current_row(self):
+        return self.columns.pop()
+ 
+    def is_this_column_safe_in_next_row(self, column):
+        # index of next row
+        row = len(self.columns)
+ 
+        # check column
+        for queen_column in self.columns:
+            if column == queen_column:
+                return False
+ 
+        # check diagonal
+        for queen_row, queen_column in enumerate(self.columns):
+            if queen_column - queen_row == column - row:
+                return False
+ 
+        # check other diagonal
+        for queen_row, queen_column in enumerate(self.columns):
+            if ((self.size - queen_column) - queen_row
+                == (self.size - column) - row):
+                return False
+ 
         return True
-  
-    # Consider this column and try placing 
-    # this queen in all rows one by one 
-    for i in range(N): 
-  
-        if isSafe(board, i, col): 
-              
-            # Place this queen in board[i][col] 
-            board[i][col] = 1
-  
-            # recur to place rest of the queens 
-            if solveNQUtil(board, col + 1) == True: 
-                return True
-  
-            # If placing queen in board[i][col 
-            # doesn't lead to a solution, then 
-            # queen from board[i][col] 
-            board[i][col] = 0
-  
-    # if the queen can not be placed in any row in 
-    # this colum col then return false 
-    return False
-  
-# This function solves the N Queen problem using 
-# Backtracking. It mainly uses solveNQUtil() to 
-# solve the problem. It returns false if queens 
-# cannot be placed, otherwise return true and 
-# placement of queens in the form of 1s. 
-# note that there may be more than one 
-# solutions, this function prints one of the 
-# feasible solutions. 
-def solveNQ(): 
-    board = [ [0, 0, 0, 0], 
-              [0, 0, 0, 0], 
-              [0, 0, 0, 0], 
-              [0, 0, 0, 0] ] 
-  
-    if solveNQUtil(board, 0) == False: 
-        print ("Solution does not exist") 
-        return False
-  
-    printSolution(board) 
-    return True
-  
-# Driver Code 
-solveNQ() 
-  
-# This code is contributed by Divyanshu Mehta 
+ 
+    def display(self):
+        for row in range(self.size):
+            for column in range(self.size):
+                if column == self.columns[row]:
+                    print('1', end=' ') #queen
+                else:
+                    print('0', end=' ') #blank tile
+            print()
+ 
+ 
+def print_all_solutions_to_n_queen(size):
+    """Display a chessboard for each possible configuration of placing n queens
+    on an n x n chessboard where n = size and print the number of such
+    configurations."""
+    board = QueenChessBoard(size)
+    number_of_solutions = print_all_solutions_helper(board)
+    print('Number of solutions:', number_of_solutions)
+ 
+def print_all_solutions_helper(board):
+    """Display a chessboard for each possible configuration of filling the given
+    board with queens and return the number of such configurations."""
+    size = board.get_size()
+ 
+    # if board is full, display solution
+    if size == board.get_queens_count():
+        board.display()
+        print()
+        return 1
+ 
+    number_of_solutions = 0
+    # place queen in next row
+    for column in range(size):
+        if board.is_this_column_safe_in_next_row(column):
+            board.place_in_next_row(column)
+            number_of_solutions += print_all_solutions_helper(board)
+            board.remove_in_current_row()
+ 
+    return number_of_solutions
+ 
+ 
+n = int(input('Enter n: '))
+print_all_solutions_to_n_queen(n)
