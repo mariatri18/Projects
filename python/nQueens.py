@@ -84,9 +84,9 @@ def print_all_solutions_helper(board):
     return number_of_solutions
  
  
-n = int(input('Enter n: '))
+n = int(input('Enter n: \n'))
 print_all_solutions_to_n_queen(n)
 
 
-with open("out.txt", "w+") as output:
-    subprocess.call(["python", "./nQueens.py"], stdout=output);
+# with open("out.txt", "w+") as output:
+#     subprocess.call(["python", "./nQueens.py"], stdout=output);
