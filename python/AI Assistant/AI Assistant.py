@@ -80,15 +80,19 @@ if __name__ = "__main__":
 
         if "time" in query:
             time()
+
         elif "date" in query:
             date()
+
         elif "offline" in query:
             quit()
+
         elif "wikipedia" in query:
             speak("Searching...")
             query = query.replace("wikipedia", "")
             result = wikipedia.summary(query, sentence = 2)     #Searching to wikipedia
             speak(result)
+
         elif "send email" in query:
             try:
                 speak("What should I say?")
@@ -99,18 +103,35 @@ if __name__ = "__main__":
             except Exception as e:
                 speak(e)
                 speak("Unable to send the message")
+
         elif "search in chrome" in query:
             speak("What should I search")
             chromepath = "C:\Program Files (x86)\...."    #Find where is your chrome path file
             search = takeCommand().lower()
             wb.get(chromepath).open_new_tab(search + ".com")    #Chrome searching
+
         elif "logout" in query:
             os.system("shutdown -l")
+
         elif "shutdown" in query:
             os.system("shutdown /s /t 1")      #os command for restart shutdown and logout pc
+
         elif "restart" in query:
             os.system("shoutdown /r /t 1")
+
         elif "play songs" in query:
             songs_dir = "C:\music\..."  #Add the music directoyry path file
             songs = os.listdir(songs_dir)
             os.startfile(os.path.join(songs_dir, songs[0]))
+
+        elif "remember that" in query:
+            speak("what shoud I remember?")
+            data = takeCommand()
+            speak("you said me to rember" + data)
+            remember = open("data.txt", "w")    #Create the file.txt that is going to save there our files
+            remember.write(data)
+            remember.close()
+
+        elif "do you know anything" in query:
+            rember = open("data.txt", "r")
+            speak("you said me to remeber that" + remeber.read())
