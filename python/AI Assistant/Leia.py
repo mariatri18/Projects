@@ -1,13 +1,13 @@
-import pyttsx3 #pip install pyttsx3
+import pyttsx3 #pip install pyttsx3 DONE
 import datetime
-import speech_recognition as sr #pip install SpeechRecognition
-import wikipedia #pip install wikipedia
+import speech_recognition as sr #pip install SpeechRecognition DONE
+import wikipedia #pip install wikipedia DONE
 import smtplib
 import webbrowser as wb
 import os
-import pyautogui # pip install pyautogui
-import psutil #pip install psutil
-import pyjokes #pip install pyjokes
+import pyautogui # pip install pyautogui DONE
+import psutil #pip install psutil DONE
+import pyjokes #pip install pyjokes DONE
 
 engine = pyttsx3.init()
 # engine.say("Good Morning")
@@ -45,7 +45,7 @@ def wishme():
     else:
         speak("Good night")
 
-    speak("Leia is at your serivce. How can I help you?")  #The greet function plays every time
+    speak("Leia is at your service. How can I help you?")  #The greet function plays every time
 
 def takeCommand():
     r = sr.Recognizer()
@@ -70,13 +70,13 @@ def sendmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.startls()
-    server.login("email", "password")  #add email and password here
-    server.sendmail("ourEmailHere",  to), content)
+    server.login("mariatri13@gmail.com", "mariatri18")  #add email and password here
+    server.sendmail(("mariatri13@gmail.com",  to), content)
     server.close()
 
 def screenshot():
     img = pyautogui.screenshot()
-    img.save("C:\udemy") #Add whatever path do you want to save files
+    img.save("C:\Desktop") #Add whatever path do you want to save files
 
 def cpu():
     usage = str(psutil.cpu_percent())
@@ -89,7 +89,7 @@ def cpu():
 def jokes():
     speak(pyjokes.get_joke())
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     wishme()
 
     while True:
@@ -138,7 +138,7 @@ if __name__ = "__main__":
             os.system("shoutdown /r /t 1")
 
         elif "play songs" in query:
-            songs_dir = "C:\music\..."  #Add the music directoyry path file
+            songs_dir = "C:\Music"  #Add the music directoyry path file
             songs = os.listdir(songs_dir)
             os.startfile(os.path.join(songs_dir, songs[0]))
 
@@ -152,7 +152,7 @@ if __name__ = "__main__":
 
         elif "do you know anything" in query:
             rember = open("data.txt", "r")
-            speak("you said me to remeber that" + remeber.read())
+            speak("you said me to remember that" + remember.read())
 
         elif "screenshot" in query:
             screenshot()        #Take a scrennshot of what you read and watch
