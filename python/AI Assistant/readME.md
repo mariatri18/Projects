@@ -1,4 +1,5 @@
-# Read Me
+# Read Me 
+![](read.jpg)
 
 + First of all install the <b>pip install pyttsx3 </b> for the AI to speak.
 + Second install <b> pip install SpeechRecognition </b>. 
