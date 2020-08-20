@@ -1,5 +1,6 @@
 import pyttsx3 #pip install pyttsx3
 import datetime
+import speech_recognition as sr #pip install SpeechRecognition
 
 engine = pyttsx3.init()
 # engine.say("Good Morning")
@@ -25,8 +26,7 @@ def date():
 
 def wishme():
     speak("Welcome back!")
-    time()
-    date()
+
     hour = datetime.datetime.now().hour
 
     if hour >= 6 and hour < 12:
@@ -40,8 +40,41 @@ def wishme():
 
     speak("Leia At your serivce. How can I help you?")  #The greet function plays every time
 
-wishme()
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")           #Speech to text recognition function
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Recognizng...")
+        query = r.recognize_google(audio, 'en=US')
+        print(query)
+    except Exception as e:
+        print(e)
+        speak("Say  that again please...")
+
+        return "None"
+
+    return query
+
+if __name__ = "__main__":
+    wishme()
+
+    while True:
+        query = takeCommand().lower()
+        print(query)
+
+        if "time" in query:
+            time()
+        elif "date" in query:
+            date()
+        elif "offline" in query:
+            quit()
+
+
+
 
 # speak("Good Morning")
-# time()
 # date()
