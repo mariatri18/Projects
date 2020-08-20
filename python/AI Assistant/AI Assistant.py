@@ -3,6 +3,8 @@ import datetime
 import speech_recognition as sr #pip install SpeechRecognition
 import wikipedia #pip install wikipedia
 import smtplib
+import webbrowser as wb
+import os
 
 engine = pyttsx3.init()
 # engine.say("Good Morning")
@@ -40,7 +42,7 @@ def wishme():
     else:
         speak("Good night")
 
-    speak("Leia At your serivce. How can I help you?")  #The greet function plays every time
+    speak("Leia is at your serivce. How can I help you?")  #The greet function plays every time
 
 def takeCommand():
     r = sr.Recognizer()
@@ -85,7 +87,7 @@ if __name__ = "__main__":
         elif "wikipedia" in query:
             speak("Searching...")
             query = query.replace("wikipedia", "")
-            result = wikipedia.summary(query, sentence = 2)     #Searchin to wikipedia
+            result = wikipedia.summary(query, sentence = 2)     #Searching to wikipedia
             speak(result)
         elif "send email" in query:
             try:
@@ -97,9 +99,14 @@ if __name__ = "__main__":
             except Exception as e:
                 speak(e)
                 speak("Unable to send the message")
-
-
-
-
-# speak("Good Morning")
-# date()
+        elif "search in chrome" in query:
+            speak("What should I search")
+            chromepath = "C:\Program Files (x86)\...."    #Find where is your chrome path file
+            search = takeCommand().lower()
+            wb.get(chromepath).open_new_tab(search + ".com")    #Chrome searching
+        elif "logout" in query:
+            os.system("shutdown -l")
+        elif "shutdown" in query:
+            os.system("shutdown /s /t 1")
+        elif "restart" in query:
+            os.system("shoutdown /r /t 1")
