@@ -107,6 +107,10 @@ if __name__ = "__main__":
         elif "logout" in query:
             os.system("shutdown -l")
         elif "shutdown" in query:
-            os.system("shutdown /s /t 1")
+            os.system("shutdown /s /t 1")      #os command for restart shutdown and logout pc
         elif "restart" in query:
             os.system("shoutdown /r /t 1")
+        elif "play songs" in query:
+            songs_dir = "C:\music\..."  #Add the music directoyry path file
+            songs = os.listdir(songs_dir)
+            os.startfile(os.path.join(songs_dir, songs[0]))
