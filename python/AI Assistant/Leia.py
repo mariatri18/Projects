@@ -155,7 +155,7 @@ if __name__ = "__main__":
             speak("you said me to remeber that" + remeber.read())
 
         elif "screenshot" in query:
-            screenshot()
+            screenshot()        #Take a scrennshot of what you read and watch
             speak("Done!")
 
         elif "cpu" in query:
