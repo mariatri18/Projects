@@ -49,9 +49,8 @@ def wishme():
 
 def takeCommand():
     r = sr.Recognizer()
-    with sr.Microphone(device_index=1) as source:
+    with sr.Microphone() as source:
         print("Listening...")           #Speech to text recognition function
-        r.pause_threshold = 1
         audio = r.listen(source)
 
     try:
