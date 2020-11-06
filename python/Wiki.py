@@ -7,7 +7,8 @@ u_i = string.capwords(Enter_input)
 lists = u_i.split()
 word = "_".join(lists)
 
-url = "https://en.wikipedia.org/wiki/"+word
+url = "https://el.wikipedia.org/wiki/"+word
+
 
 def wikibot(url):
     url_open = requests.get(url)
