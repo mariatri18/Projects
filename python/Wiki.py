@@ -2,6 +2,7 @@ import requests
 import string
 from bs4 import BeautifulSoup
 
+
 Enter_input = input("Search: ")
 u_i = string.capwords(Enter_input)
 lists = u_i.split()
@@ -26,6 +27,5 @@ def wikibot(url):
     for i in range(1,3):
         print(soup('p')[i].text)
 wikibot(url)     
-
 
 print(url)
