@@ -1,35 +1,19 @@
-// Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
-
-// REQUIRES the following Arduino libraries:
-// - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
-// - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor
-
 #include "DHT.h"
 #include <LiquidCrystal.h>
+#include "SPI.h"
+#include "RF24.h"
+#include "BTLE.h"
 
 #define DHTPIN 8
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-// Digital pin connected to the DHT sensor
-// Feather HUZZAH ESP8266 note: use pins 3, 4, 5, 12, 13 or 14 --
-// Pin 15 can work but DHT must be disconnected during program upload.
+RF24 radio(9,10);
 
-// Uncomment whatever type you're using!
-//#define DHTTYPE DHT11   // DHT 11
+BTLE btle(&radio);
+
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
 
-// Connect pin 1 (on the left) of the sensor to +5V
-// NOTE: If using a board with 3.3V logic like an Arduino Due connect pin 1
-// to 3.3V instead of 5V!
-// Connect pin 2 of the sensor to whatever your DHTPIN is
-// Connect pin 4 (on the right) of the sensor to GROUND
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
 
-// Initialize DHT sensor.
-// Note that older versions of this library took an optional third parameter to
-// tweak the timings for faster processors.  This parameter is no longer needed
-// as the current DHT reading algorithm adjusts itself to work on faster procs.
+
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
@@ -40,6 +24,11 @@ void setup() {
 
   lcd.begin(16, 2);
 
+while (!Serial) { }
+
+Serial.println("BTLE advertisement sender");
+
+btle.begin("Temperature");
 }
 
 void loop() {
@@ -84,5 +73,25 @@ void loop() {
   lcd.setCursor(0,1);
   lcd.print(F("C Temp: "));
   lcd.print(t);
+
+  float temp=30;
+
+nrf_service_data buf;
+
+//buf.service_uuid = NRF_DEVICE_INFORMATION_SERVICE_UUID; //0x180A
+
+buf.service_uuid = NRF_TEMPERATURE_SERVICE_UUID; //0x1809
+
+//buf.service_uuid =NRF_BATTERY_SERVICE_UUID; //0x180F
+
+buf.value = BTLE::to_nRF_Float(temp);
+
+btle.advertise(0x16, &buf, sizeof(buf));
+
+//btle.advertise(0,0);
+
+btle.hopChannel();
+
+Serial.print(".");
   
 }
