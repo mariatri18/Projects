@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt 
 import numpy as np
-from matplotlib.color import LogNorm
+from matplotlib.colors import LogNorm
 dx, dy = 0.015, 0.05
-x = np.arange(-4.0, 4.0, dx)
-y = np.arange(-4.0, 4.0, dy)
+x = np.arange(1, 8, dx)
+y = np.arange(1, 8, dy)
 X,Y = np.meshgrid(x, y)
 extent = np.min(x), np.max(x), np.min(y), np.max(y)
 Z1 = np.add.outer(range(8), range(8))%2
@@ -15,5 +15,5 @@ def copyassignment(x, y):
 Z2 = copyassignment(x,Y)
 plt.imshow(Z2, alpha=0.7, interpolation='bilinear', extent=extent)
 plt.cool()
-plt.title('matplotlib.pyplot.cool() function Example', fontweight="bold")
+plt.title('Chess Board', fontweight="bold")
 plt.show()               
