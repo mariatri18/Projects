@@ -52,13 +52,11 @@ class QueenChessBoard:
  
  
 def print_all_solutions_to_n_queen(size):
-    
     board = QueenChessBoard(size)
     number_of_solutions = print_all_solutions_helper(board)
     print('Arithmos Lysewn:', number_of_solutions)
  
 def print_all_solutions_helper(board):
-    
     size = board.get_size()
  
     

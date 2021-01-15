@@ -1,9 +1,10 @@
 from GoogleNews import GoogleNews
 googlenews=GoogleNews()
-googlenews=GoogleNews('en','d')
+googlenews=GoogleNews(lang='en')
 
-googlenews.search('Italy')
-googlenews.getpage()
+googlenews.get_news('APPLE')
+googlenews.search('APPLE')
+googlenews.get_page(1)
 
 googlenews.result()
-googlenews.gettext()
+googlenews.get_texts()
