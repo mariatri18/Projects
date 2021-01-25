@@ -1,6 +1,5 @@
-from newsapi import NewsApiClient
-from key import my_api_key
-import dateline as dt
-import pandas as pd
+from requests import get
 
-api = NewsApiClient(api_key='API_KEY')
+res = get('https://www.hwbox.gr/news.html')
+
+print(res.content)
