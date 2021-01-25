@@ -4,7 +4,8 @@ from phonenumbers import geocoder
 
 Phonenumber=input("Enter you phone number: ")
 
-number=phonumbers.parse(Phonenumber)
+number=phonenumbers.parse(Phonenumber)
 
 print(geocoder.description_for_number(number,'en'))
-print(carrier.name_for_number(number,'en6'))
+print(carrier.name_for_number(number,'en'))
++
