@@ -1,3 +1,1 @@
-# GitHub
 
-![](readme.jpg)
